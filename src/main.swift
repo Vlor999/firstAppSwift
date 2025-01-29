@@ -46,19 +46,39 @@ func ajoutValeur(array: inout [[String]]) {
 }
 
 func initArray() -> [[String]] {
-    return []
+    let array = [["Date", "Type", "Montant", "Titre"]]
+    return array
 }
 
 func displayArray(mainArray: [[String]]) {
-    for arr in mainArray 
-    {
-        for item in arr 
-        {
-            print(item, terminator: "; ")
-        }
-        print()
+    guard !mainArray.isEmpty else {
+        print("No data to display.")
+        return
     }
+
+    var output: String = ""
+    let header:String = "Livre de compte\n"
+    let columnCount:Int = mainArray[0].count
+    var lengthArray = Array(repeating: 0, count: columnCount)
+
+    for row in mainArray {
+        for (index, item) in row.enumerated() {
+            lengthArray[index] = max(item.count, lengthArray[index])
+        }
+    }
+
+    for row in mainArray {
+        for (index, item) in row.enumerated() {
+            let padding:Int = lengthArray[index] - item.count + 2
+            output += item + String(repeating: " ", count: padding)
+        }
+        output += "\n"
+    }
+    output = header + output
+
+    print(output)
 }
+
 
 func main() {
     let name = getName()

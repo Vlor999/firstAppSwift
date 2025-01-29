@@ -18,7 +18,7 @@ init:
 compile:
 	$(SC) $(SRC)/$(FILE) -o $(BIN)/$(OUT)
 
-run:
+run: compile
 	./$(BIN)/$(OUT)
 
 clean:
