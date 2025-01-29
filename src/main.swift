@@ -1,47 +1,72 @@
-// Making a a simple tabke of contents 
-
-func getString()-> String{
-    if let name = readLine(){
+func getString() -> String {
+    if let name = readLine() {
         return name
-    } 
-    else 
-    {
+    } else {
         return ""
     }
 }
 
-
-func getString(title: String)->String {
+func getString(title: String) -> String {
     print(title, terminator: "")
     return getString()
 }
 
-
-func getName()->String {
+func getName() -> String {
     return getString(title: "Enter your name: ")
 }
 
-
-func giveInfo(name: String)->Void {
+func giveInfo(name: String) {
     print("Hello, \(name)!")
 }
 
+func addValue() -> [String] {
+    var currentArray = [String]()
+    let date = getString(title: "Enter the date: ")
+    let type = getString(title: "Enter the type: ")
+    let montant = getString(title: "Enter the amount: ")
+    let titre = getString(title: "Enter the title: ")
 
-func createDico()->[String: String] {
-    var dico = [String: String]()
-    dico["1"] = "Chapter 1: Getting debutting"
-    dico["2"] = "Chapter 2: Basic Operations"
-    dico["3"] = "Chapter 3: Strings and Characters"
-    dico["4"] = "Chapter 4: Collection Types"
-    dico["5"] = "Chapter 5: Control Flow"
-    return dico
+    currentArray.append(contentsOf: [date, type, montant, titre])
+    return currentArray
 }
 
+func ajoutValeur(array: inout [[String]]) {
+    guard let nombre = Int(getString(title: "Number of propositions: ")) else {
+        print("Invalid number entered.")
+        return
+    }
+    print()
 
-func main()->Void {
+    var count = nombre
+    while count > 0 {
+        array.append(addValue())
+        count -= 1
+        print()
+    }
+}
+
+func initArray() -> [[String]] {
+    return []
+}
+
+func displayArray(mainArray: [[String]]) {
+    for arr in mainArray 
+    {
+        for item in arr 
+        {
+            print(item, terminator: "; ")
+        }
+        print()
+    }
+}
+
+func main() {
     let name = getName()
     giveInfo(name: name)
+    
+    var mainArray = initArray()
+    ajoutValeur(array: &mainArray)
+    displayArray(mainArray: mainArray)
 }
-
 
 main()
